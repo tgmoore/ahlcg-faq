@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { DescribeTableCommand, DescribeTableCommandInput, DescribeTableCommandOutput, DynamoDBClient, DynamoDBClientResolvedConfig } from '@aws-sdk/client-dynamodb';
-import { CognitoIdentityClient, ServiceInputTypes, ServiceOutputTypes } from '@aws-sdk/client-cognito-identity';
+import { DescribeTableCommand, DynamoDBClient, ScanCommand } from '@aws-sdk/client-dynamodb';
 import { fromCognitoIdentityPool } from '@aws-sdk/credential-provider-cognito-identity';
-import { NodeHttpHandler } from '@aws-sdk/node-http-handler';
+import { CognitoIdentityClient } from '@aws-sdk/client-cognito-identity';
 
-import { Agent } from 'https';
+import { from, map } from 'rxjs';
 
 const REGION = 'us-east-1';
 const IDENTITY_POOL_ID = 'us-east-1:f88541e9-22b6-41e7-8835-17ca4a61c009';
@@ -26,10 +25,12 @@ export class AwsService {
   constructor() { }
 
   readItems() {
-    this._log(new DescribeTableCommand({ TableName: TABLE_NAME }), 'Describe Table')
+    return from(this._dynamoClient.send(new ScanCommand({ TableName: TABLE_NAME }))).pipe(
+      map(x => x?.Items || [])
+    );
   }
 
-  private async _log(cmd: DescribeTableCommand, msg: string) {
+  private async _log(cmd: DescribeTableCommand | ScanCommand, msg: string) {
     try {
       await this._dynamoClient.send(cmd);
       console.log('Success', msg);
