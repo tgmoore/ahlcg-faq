@@ -21,13 +21,12 @@
     "@aws-sdk/client-cognito-identity": "^3.209.0",
     "@aws-sdk/client-dynamodb": "^3.209.0",
     "@aws-sdk/credential-provider-cognito-identity": "^3.209.0",
-    "@aws-sdk/node-http-handler": "^3.208.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^14.2.9",
+    "@angular-devkit/build-angular": "^15.0.0",
     "@angular/cli": "~15.0.0",
     "@angular/compiler-cli": "^15.0.0",
     "@types/jasmine": "~4.0.0",
