@@ -1,3 +1,10 @@
-<div *ngFor="let card of cards | async">
-    {{ JSON.stringify(card) }}
+<input [value]="startCode" placeholder="Start with code">
+<button (click)="fetchFAQs()">Fetch FAQ from AHDB</button>
+<br/>
+<button (click)="stopFetch()">Stop fetch</button>
+<br/>
+<input [formControl]="searchControl" placeholder="Search for...">
+<button (click)="viewStoredFAQS()">View FAQs</button>
+<div>
+    <app-viewer [faqs]="faqs | async"></app-viewer>
 </div>

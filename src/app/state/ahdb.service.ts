@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { FAQ } from './ahdb.types';
 
 import { tap } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +14,6 @@ export class AhdbService {
   constructor(private _http: HttpClient) { }
 
   getFAQ(cardCode: string) {
-    return this._http.get<FAQ[]>(`${this._baseUrl}/faq/${cardCode}.json`).pipe(tap(x => console.log(x)));
+    return this._http.get<FAQ[]>(`${this._baseUrl}/faq/${cardCode}.json`);
   }
 }
