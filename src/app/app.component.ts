@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { AwsService } from './state/aws.service';
 import { AhdbService } from './state/ahdb.service';
 
-import { Observable, Subject, takeUntil, tap } from 'rxjs';
+import { first, Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -27,12 +27,22 @@ export class AppComponent implements OnInit {
     this.cards = this._aws.persistFAQs(this.startCode);
   }
 
+  fetchCards() {
+    this._ahdb.getCards().pipe(first()).subscribe({
+      next: console.log
+    });
+  }
+
   fetchFAQs() {
     this.cards.pipe(takeUntil(this.abort)).subscribe();
   }
 
   viewStoredFAQS() {
-    this.faqs = this._aws.getFAQs(this.searchControl.value).pipe(tap(console.log));
+    this.faqs = this._aws.getFAQs(this.searchControl.value);
+  }
+
+  writeFAQsFromLocal() {
+    this._aws.writeFAQs();
   }
 
   stopFetch() {

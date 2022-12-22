@@ -1,10 +1,14 @@
-<input [value]="startCode" placeholder="Start with code">
-<button (click)="fetchFAQs()">Fetch FAQ from AHDB</button>
+<button (click)="fetchCards()" disabled>Fetch all cards from AHDB</button>
 <br/>
-<button (click)="stopFetch()">Stop fetch</button>
+<input [value]="startCode" placeholder="Start with code" disabled>
+<button (click)="fetchFAQs()" disabled>Fetch FAQ from AHDB</button>
 <br/>
-<input [formControl]="searchControl" placeholder="Search for...">
+<button (click)="stopFetch()" disabled>Stop fetch</button>
+<br/>
+<button (click)="writeFAQsFromLocal()" style="margin-bottom: 10px;" disabled>Write local FAQs</button>
+<br/>
+<input [formControl]="searchControl" placeholder="Search for..." style="margin-right: 10px;">
 <button (click)="viewStoredFAQS()">View FAQs</button>
-<div>
+<div style="margin-top: 10px;">
     <app-viewer [faqs]="faqs | async"></app-viewer>
 </div>
